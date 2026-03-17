@@ -9,8 +9,7 @@ services:
       POSTGRES_LOGIN: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./database/init/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./database/init/init-users.sql:/docker-entrypoint-initdb.d/init-users.sql
+      - ./database/init:/docker-entrypoint-initdb.d
     ports:
       - 5050:5432
     networks:
