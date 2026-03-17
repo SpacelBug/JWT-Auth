@@ -1,0 +1,6 @@
+cryptography==46.0.5
+fastapi==0.133.0
+passlib[argon2]==1.7.4
+PyJWT==2.11.0
+uvicorn==0.41.0
+SQLAlchemy==2.0.48
