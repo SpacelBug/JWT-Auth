@@ -1,0 +1,21 @@
+name: jwt-auth
+services:    
+  database:
+    image: postgres:14.22-alpine3.22
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_HOST: 0.0.0.0
+      POSTGRES_PORT: 5432
+      POSTGRES_LOGIN: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./database/init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/init/init-users.sql:/docker-entrypoint-initdb.d/init-users.sql
+    ports:
+      - 5050:5432
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
