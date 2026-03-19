@@ -19,7 +19,8 @@ class UserBase(BaseModel):
 
 
 class DeviceResponse(BaseModel):
-    device_uuid: str
+    id: int
+    current_device: bool | None = False
     name: str | None = None
     user_agent: str | None = None
     last_ip: str | None = None

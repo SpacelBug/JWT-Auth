@@ -127,8 +127,12 @@ class AuthService:
         return UserRepository(db).get_by_id(user_id)
 
     @staticmethod
-    def get_devices(user_id, db):
-        return DeviceRepository(db).get_user_devices(user_id)
+    def get_devices(current_device_uuid, user_id, db):
+        devices = DeviceRepository(db).get_user_devices(user_id)
+        for device in devices:
+            if device.device_uuid == current_device_uuid:
+                device.current_device = True
+        return devices
 
     @staticmethod
     def verify_token(token):

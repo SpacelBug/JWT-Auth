@@ -86,5 +86,5 @@ async def user(user: UserBase = Depends(get_current_user)):
 
 
 @auth.get("/devices", response_model=List[DeviceResponse])
-async def devices(user: UserBase = Depends(get_current_user), db=Depends(get_db)):
-    return AuthService.get_devices(user.id, db)
+async def devices(request: Request, user: UserBase = Depends(get_current_user), db=Depends(get_db)):
+    return AuthService.get_devices(request.cookies.get("device_uuid"), user.id, db)
