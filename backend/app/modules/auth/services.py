@@ -113,6 +113,11 @@ class AuthService:
         db.commit()
 
     @staticmethod
+    def logout_device(device_id, db):
+        DeviceRepository(db).delete(device_id)
+        db.commit()
+
+    @staticmethod
     def logout_all(user_id, db):
         RefreshTokenRepository(db).delete_user_tokens(user_id)
         db.commit()

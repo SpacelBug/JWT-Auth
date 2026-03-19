@@ -60,7 +60,14 @@ class DeviceRepository(Repository):
     def update(self):
         pass
 
-    def delete(self, device_uuid):
+    def delete(self, device_id):
+        device_object = self.db.scalar(
+            select(Device).where(Device.id == device_id)
+        )
+        self.db.delete(device_object)
+        self.db.flush()
+
+    def delete_by_uuid(self, device_uuid):
         device_object = self.db.scalar(
             select(Device).where(Device.device_uuid == device_uuid)
         )
