@@ -51,7 +51,7 @@ async def logout(request: Request, response: Response, db=Depends(get_db)):
     return {"Message": "Successful logout"}
 
 
-@auth.post("/logout-all")
+@auth.post("/logout/all")
 async def logout_all(response: Response, user: UserBase = Depends(get_current_user), db=Depends(get_db)):
     AuthService.logout_all(user.id, db)
 
