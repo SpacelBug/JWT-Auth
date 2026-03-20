@@ -4,7 +4,12 @@ from typing import List
 
 from app.db.session import get_db
 
-from app.modules.auth.schemas import UserLogin, UserBase, DeviceResponse
+from app.modules.auth.schemas import (
+    UserLogin,
+    UserBase,
+    DeviceResponse,
+    RefreshTokenResponse,
+)
 from app.modules.auth.services import AuthService
 from app.modules.auth.dependencies import get_current_user
 
@@ -88,5 +93,12 @@ async def user(user: UserBase = Depends(get_current_user)):
 
 
 @auth.get("/devices", response_model=List[DeviceResponse])
-async def devices(request: Request, user: UserBase = Depends(get_current_user), db=Depends(get_db)):
+async def devices(
+    request: Request, user: UserBase = Depends(get_current_user), db=Depends(get_db)
+):
     return AuthService.get_devices(request.cookies.get("device_uuid"), user.id, db)
+
+
+@auth.get("/tokens", response_model=List[RefreshTokenResponse])
+async def tokens(request: Request, _=Depends(get_current_user), db=Depends(get_db)):
+    return AuthService.get_tokens(request.cookies.get("device_uuid"), db)

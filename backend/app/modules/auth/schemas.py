@@ -26,3 +26,9 @@ class DeviceResponse(BaseModel):
     last_ip: str | None = None
     created_at: datetime
     last_seen_at: datetime | None = None
+
+
+class RefreshTokenResponse(BaseModel):
+    created_at: datetime
+    expires_at: datetime
+    revoked: bool
