@@ -59,7 +59,9 @@ async def logout_device(device_id, db=Depends(get_db)):
 
 
 @auth.post("/logout/all")
-async def logout_all(response: Response, user: UserBase = Depends(get_current_user), db=Depends(get_db)):
+async def logout_all(
+    response: Response, user: UserBase = Depends(get_current_user), db=Depends(get_db)
+):
     AuthService.logout_all(user.id, db)
 
     response.delete_cookie("access_token")
