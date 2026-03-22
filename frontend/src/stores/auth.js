@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logoutAll() {
-    await auth_api.post('/logout-all')
+    await auth_api.post('/logout/all')
     isAuthorized.value = false
     localStorage.removeItem('isAuthorized')
   }
