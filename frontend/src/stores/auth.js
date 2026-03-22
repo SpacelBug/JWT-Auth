@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthorized = localStorage.getItem('isAuthorized') === 'true' ? ref(true) : ref(false)
   const user = ref()
   const devices = ref()
+  const tokens = ref()
 
   //functions
   async function login(params) {
@@ -66,5 +67,10 @@ export const useAuthStore = defineStore('auth', () => {
     devices.value = res.data
   }
 
-  return { isAuthorized, user, devices, login, getUser, getDevices, logout, logoutAll }
+  async function getTokens(params) {
+    const res = await auth_api.get('/tokens')
+    tokens.value = res.data
+  }
+
+  return { isAuthorized, user, devices, tokens, login, getUser, getDevices, getTokens, logout, logoutAll }
 })

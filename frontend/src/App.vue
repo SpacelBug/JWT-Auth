@@ -25,6 +25,7 @@ onMounted(() => {
   if (store.isAuthorized) {
     store.getUser()
     store.getDevices()
+    store.getTokens()
   }
 })
 

@@ -7,6 +7,12 @@
           :device="device"
       />
     </div>
+    <h3>Tokens</h3>
+    <div class="tokens">
+      <div v-for="token in store.tokens" class="token">
+        {{ token }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,12 +35,23 @@ const store = useAuthStore()
   height: 100%;
   border-radius: 5px;
   padding: 16px;
+  overflow: auto;
 }
 
 .devices {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.token {
+  background-color: var(--background-color);
 }
 
 </style>
