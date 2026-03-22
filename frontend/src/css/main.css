@@ -1,0 +1,24 @@
+body,
+html {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--font-color)
+}
+
+input {
+  border: none;
+  outline: none;
+  background-color: var(--input-color);
+  height: 30px;
+  border-radius: 5px;
+  color: var(--font-color)
+}
+
+button {
+  cursor: pointer;
+  color: var(--font-color);
+  background-color: var(--input-color);
+  border-radius: 5px;
+  border: solid 1px rgb(133, 133, 133);
+  height: 30px;
+}
