@@ -56,13 +56,6 @@ async def logout(request: Request, response: Response, db=Depends(get_db)):
     return {"Message": "Successful logout"}
 
 
-@auth.post("/logout/{device_id}")
-async def logout_device(device_id, db=Depends(get_db)):
-    AuthService.logout_device(device_id, db)
-
-    return {"Message": "Successful logout"}
-
-
 @auth.post("/logout/all")
 async def logout_all(
     response: Response, user: UserBase = Depends(get_current_user), db=Depends(get_db)
@@ -71,6 +64,13 @@ async def logout_all(
 
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
+
+    return {"Message": "Successful logout"}
+
+
+@auth.post("/logout/{device_id}")
+async def logout_device(device_id, db=Depends(get_db)):
+    AuthService.logout_device(device_id, db)
 
     return {"Message": "Successful logout"}
 
