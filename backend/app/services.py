@@ -6,9 +6,7 @@ from passlib.context import CryptContext
 
 import jwt
 
-from fastapi import Request
-
-from app.modules.auth.repositories import (
+from app.repositories import (
     UserRepository,
     DeviceRepository,
     RefreshTokenRepository,

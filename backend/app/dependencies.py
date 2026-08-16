@@ -1,6 +1,7 @@
 from fastapi import Depends, Request
+
 from app.db.session import get_db
-from app.modules.auth.services import AuthService
+from backend.app.services import AuthService
 
 
 def get_current_user(request: Request, db=Depends(get_db)):

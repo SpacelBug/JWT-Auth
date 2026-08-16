@@ -2,22 +2,6 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class TokenPayload(BaseModel):
-    sub: str
-    exp: str
-
-
-class UserLogin(BaseModel):
-    login: str
-    password: str
-
-
-class UserBase(BaseModel):
-    id: int
-    email: str
-    login: str
-
-
 class DeviceResponse(BaseModel):
     id: int
     current_device: bool | None = False
@@ -26,9 +10,3 @@ class DeviceResponse(BaseModel):
     last_ip: str | None = None
     created_at: datetime
     last_seen_at: datetime | None = None
-
-
-class RefreshTokenResponse(BaseModel):
-    created_at: datetime
-    expires_at: datetime
-    revoked: bool

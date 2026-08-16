@@ -8,7 +8,7 @@ from sqlalchemy.exc import OperationalError
 
 from app.exceptions.exception_handler import register_exception_handlers
 
-from app.modules.auth.routes import auth
+from backend.app.routes import auth
 
 from app.db.session import engine
 

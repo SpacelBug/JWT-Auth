@@ -4,14 +4,14 @@ from typing import List
 
 from app.db.session import get_db
 
-from app.modules.auth.schemas import (
+from app.schemas import (
     UserLogin,
     UserBase,
     DeviceResponse,
     RefreshTokenResponse,
 )
-from app.modules.auth.services import AuthService
-from app.modules.auth.dependencies import get_current_user
+from backend.app.services import AuthService
+from backend.app.dependencies import get_current_user
 
 auth = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -77,7 +77,7 @@ async def logout_device(device_id, db=Depends(get_db)):
 
 @auth.post("/hasher")
 async def hasher(data: str, user: UserBase = Depends(get_current_user)):
-    from app.modules.auth.services import pwd_context
+    from backend.app.services import pwd_context
 
     return pwd_context.hash(data)
 
