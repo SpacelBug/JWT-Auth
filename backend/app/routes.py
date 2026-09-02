@@ -10,8 +10,8 @@ from app.schemas import (
     DeviceResponse,
     RefreshTokenResponse,
 )
-from backend.app.services import AuthService
-from backend.app.dependencies import get_current_user
+from app.services import AuthService
+from app.dependencies import get_current_user
 
 auth = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -77,7 +77,7 @@ async def logout_device(device_id, db=Depends(get_db)):
 
 @auth.post("/hasher")
 async def hasher(data: str, user: UserBase = Depends(get_current_user)):
-    from backend.app.services import pwd_context
+    from app.services import pwd_context
 
     return pwd_context.hash(data)
 

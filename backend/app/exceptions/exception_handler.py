@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 
-from backend.app.services import AuthError
+from app.services import AuthError
 
 
 async def auth_error(request: Request, exc: AuthError):
