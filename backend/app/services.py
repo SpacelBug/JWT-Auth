@@ -12,7 +12,6 @@ from app.repositories import (
     RefreshTokenRepository,
 )
 
-
 PRIVATE_ACCESS_KEY = environ.get("PRIVATE_ACCESS_KEY")
 PUBLIC_ACCESS_KEY = environ.get("PUBLIC_ACCESS_KEY")
 PRIVATE_REFRESH_KEY = environ.get("PRIVATE_REFRESH_KEY")
@@ -44,7 +43,9 @@ class AuthService:
 
             if device_uuid is None:
                 device_uuid = uuid4()
-                device_object = DeviceRepository(db).add(user_object.id, device_uuid, user_agent, last_ip)
+                device_object = DeviceRepository(db).add(
+                    user_object.id, device_uuid, user_agent, last_ip
+                )
             else:
                 device_object = DeviceRepository(db).get_by_uuid(device_uuid)
 
