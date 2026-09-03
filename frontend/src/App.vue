@@ -21,11 +21,11 @@ import MainContainer from './components/MainContainer.vue';
 
 const store = useAuthStore()
 
-onMounted(() => {
+onMounted(async () => {
   if (store.isAuthorized) {
-    store.getUser()
-    store.getDevices()
-    store.getTokens()
+    await store.getUser()
+    await store.getDevices()
+    await store.getTokens()
   }
 })
 
