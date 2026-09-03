@@ -142,9 +142,8 @@ class AuthService:
         return devices
 
     @staticmethod
-    def get_tokens(device_uuid, db):
-        device = DeviceRepository(db).get_by_uuid(device_uuid)
-        return RefreshTokenRepository(db).get_device_tokens(device.id)
+    def get_tokens(db):
+        return RefreshTokenRepository(db).get()
 
     @staticmethod
     def verify_token(token):

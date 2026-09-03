@@ -7,7 +7,7 @@ from app.models.device import Device
 
 class RefreshTokenRepository(Repository):
     def get(self):
-        pass
+        return self.db.scalars(select(RefreshToken)).all()
 
     def get_device_tokens(self, device_id) -> list[RefreshToken]:
         return self.db.scalars(
