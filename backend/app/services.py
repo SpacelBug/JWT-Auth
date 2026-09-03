@@ -73,6 +73,9 @@ class AuthService:
     def refresh(refresh_token, device_uuid, db) -> tuple[str, str]:
         device_obj = DeviceRepository(db).get_by_uuid(device_uuid)
 
+        if device_obj is None:
+            raise AuthError("Unknown device")
+
         verified_token_hash_id = None
 
         for refresh_token_obj in RefreshTokenRepository(db).get_device_tokens(
