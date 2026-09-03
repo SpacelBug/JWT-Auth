@@ -73,5 +73,16 @@ export const useAuthStore = defineStore('auth', () => {
     tokens.value = res.data
   }
 
-  return { isAuthorized, user, devices, tokens, login, getUser, getDevices, getTokens, logout, logoutAll }
+  return {
+    isAuthorized,
+    user,
+    devices,
+    tokens,
+    login,
+    getUser,
+    getDevices,
+    getTokens,
+    logout,
+    logoutAll,
+  }
 })

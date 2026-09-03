@@ -3,11 +3,11 @@
     <div class="left-bar">
       <h1>Auth Service</h1>
 
-      <LoginForm v-if="!store.isAuthorized"/>
+      <LoginForm v-if="!store.isAuthorized" />
       <UserForm v-else />
     </div>
 
-    <MainContainer v-if="store.isAuthorized"/>
+    <MainContainer v-if="store.isAuthorized" />
   </div>
 </template>
 
