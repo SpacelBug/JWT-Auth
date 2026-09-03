@@ -123,7 +123,9 @@ class AuthService:
 
     @staticmethod
     def logout_all(user_id, db):
-        RefreshTokenRepository(db).delete_user_tokens(user_id)
+        devices = DeviceRepository(db).get_user_devices(user_id)
+        for device in devices:
+            DeviceRepository(db).delete(device.id)
         db.commit()
 
     @staticmethod
