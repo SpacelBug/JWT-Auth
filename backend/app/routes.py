@@ -77,6 +77,13 @@ async def logout_device(
     return {"Message": "Successful logout"}
 
 
+@auth.post("/revoke/{token_id}")
+async def revoke_token(
+    token_id: int, user: UserBase = Depends(get_current_user), db=Depends(get_db)
+):
+    pass
+
+
 @auth.post("/hasher")
 async def hasher(data: str, user: UserBase = Depends(get_current_user)):
     from app.services import pwd_context
