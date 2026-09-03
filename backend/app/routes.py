@@ -64,15 +64,22 @@ async def logout_all(
 
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
+    response.delete_cookie("device_uuid")
 
     return {"Message": "Successful logout"}
 
 
 @auth.post("/logout/{device_id}")
-async def logout_device(
-    device_id, user: UserBase = Depends(get_current_user), db=Depends(get_db)
+    response: Response,
+    device_id,
+    _: UserBase = Depends(get_current_user),
+    db=Depends(get_db),
 ):
     AuthService.logout_device(device_id, db)
+
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+    response.delete_cookie("device_uuid")
 
     return {"Message": "Successful logout"}
 
