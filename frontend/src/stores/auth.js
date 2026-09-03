@@ -41,6 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     await getUser()
     await getDevices()
+    await getTokens()
 
     localStorage.setItem('isAuthorized', true)
   }
