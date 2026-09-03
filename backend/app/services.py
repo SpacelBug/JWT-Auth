@@ -51,6 +51,9 @@ class AuthService:
                 if not device_object:
                     raise AuthError("Unknown device")
 
+                device_object.last_ip = last_ip
+                db.flush()
+
             access_token = AuthService.__create_access_token(user_object.id)
             refresh_token = AuthService.__create_refresh_token(user_object.id)
 
