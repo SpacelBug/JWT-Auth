@@ -26,9 +26,9 @@ def login(request: Request, response: Response, user: UserLogin, db=Depends(get_
         user, device_uuid, user_agent, last_ip, db
     )
 
-    response.set_cookie("access_token", access_token)
-    response.set_cookie("refresh_token", refresh_token)
-    response.set_cookie("device_uuid", device_uuid)
+    response.set_cookie("access_token", access_token, httponly=True)
+    response.set_cookie("refresh_token", refresh_token, httponly=True)
+    response.set_cookie("device_uuid", device_uuid, httponly=True)
 
     return {"Message": "Successful login"}
 
@@ -40,8 +40,8 @@ def refresh(request: Request, response: Response, db=Depends(get_db)):
 
     access_token, refresh_token = AuthService.refresh(refresh_token, device_uuid, db)
 
-    response.set_cookie("access_token", access_token)
-    response.set_cookie("refresh_token", refresh_token)
+    response.set_cookie("access_token", access_token, httponly=True)
+    response.set_cookie("refresh_token", refresh_token, httponly=True)
 
 
 @auth.post("/logout")
