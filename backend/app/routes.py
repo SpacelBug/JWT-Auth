@@ -17,9 +17,7 @@ auth = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @auth.post("/login")
-async def login(
-    request: Request, response: Response, user: UserLogin, db=Depends(get_db)
-):
+def login(request: Request, response: Response, user: UserLogin, db=Depends(get_db)):
     device_uuid = request.cookies.get("device_uuid")
     user_agent = request.headers.get("User-Agent")
     last_ip = request.client.host
@@ -36,7 +34,7 @@ async def login(
 
 
 @auth.post("/refresh")
-async def refresh(request: Request, response: Response, db=Depends(get_db)):
+def refresh(request: Request, response: Response, db=Depends(get_db)):
     device_uuid = request.cookies.get("device_uuid")
     refresh_token = request.cookies.get("refresh_token")
 
@@ -47,7 +45,7 @@ async def refresh(request: Request, response: Response, db=Depends(get_db)):
 
 
 @auth.post("/logout")
-async def logout(request: Request, response: Response, db=Depends(get_db)):
+def logout(request: Request, response: Response, db=Depends(get_db)):
     AuthService.logout(request.cookies.get("device_uuid"), db)
 
     response.delete_cookie("access_token")
@@ -57,57 +55,65 @@ async def logout(request: Request, response: Response, db=Depends(get_db)):
 
 
 @auth.post("/logout/all")
-async def logout_all(
+def logout_all(
     response: Response, user: UserBase = Depends(get_current_user), db=Depends(get_db)
 ):
     AuthService.logout_all(user.id, db)
 
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
+    response.delete_cookie("device_uuid")
 
     return {"Message": "Successful logout"}
 
 
 @auth.post("/logout/{device_id}")
-async def logout_device(
-    device_id, user: UserBase = Depends(get_current_user), db=Depends(get_db)
+def logout_device(
+    response: Response,
+    device_id,
+    _: UserBase = Depends(get_current_user),
+    db=Depends(get_db),
 ):
     AuthService.logout_device(device_id, db)
+
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+    response.delete_cookie("device_uuid")
 
     return {"Message": "Successful logout"}
 
 
 @auth.post("/revoke/{token_id}")
-async def revoke_token(
+def revoke_token(
     token_id: int, user: UserBase = Depends(get_current_user), db=Depends(get_db)
 ):
     pass
 
 
 @auth.post("/hasher")
-async def hasher(data: str, user: UserBase = Depends(get_current_user)):
+def hasher(data: str, user: UserBase = Depends(get_current_user)):
     from app.services import pwd_context
 
     return pwd_context.hash(data)
 
 
 @auth.post("/registration")
-async def registration():
+def registration():
     pass
 
 
 @auth.get("/user", response_model=UserBase)
-async def user(user: UserBase = Depends(get_current_user)):
+def user(user: UserBase = Depends(get_current_user)):
     return user
 
 
 @auth.get("/devices", response_model=List[DeviceResponse])
-async def devices(
+def devices(
     request: Request, user: UserBase = Depends(get_current_user), db=Depends(get_db)
 ):
     return AuthService.get_devices(request.cookies.get("device_uuid"), user.id, db)
 
 
 @auth.get("/tokens", response_model=List[RefreshTokenResponse])
-async def tokens(request: Request, _=Depends(get_current_user), db=Depends(get_db)):
-    return AuthService.get_tokens(request.cookies.get("device_uuid"), db)
+def tokens(request: Request, _=Depends(get_current_user), db=Depends(get_db)):
+    return AuthService.get_tokens(db)
