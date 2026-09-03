@@ -1,5 +1,5 @@
 <template>
-  <div :class="['device', {'current-device': device.current_device}]">
+  <div :class="['device', { 'current-device': device.current_device }]">
     <h3>Name: {{ device.name }}</h3>
     <div class="info">
       <span><b>Agent: </b> {{ device.user_agent }}</span>
@@ -16,7 +16,6 @@ const props = defineProps([
 </script>
 
 <style scoped>
-
 .device {
   background-color: var(--background-color);
   padding: 16px;
@@ -31,5 +30,4 @@ const props = defineProps([
   display: flex;
   flex-direction: column;
 }
-
 </style>

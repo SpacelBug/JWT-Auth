@@ -9,9 +9,12 @@
     </div>
     <h3>Tokens</h3>
     <div class="tokens">
-      <div v-for="token in store.tokens" class="token">
+      <token-plate
+          v-for="token in store.tokens"
+          :token="token"
+      >
         {{ token }}
-      </div>
+      </token-plate>
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@
 import { useAuthStore } from '@/stores/auth';
 
 import DevicePlate from './DevicePlate.vue';
+import TokenPlate from './TokenPlate.vue';
 
 const store = useAuthStore()
 </script>
@@ -46,12 +50,8 @@ const store = useAuthStore()
 
 .tokens {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 16px;
 }
-
-.token {
-  background-color: var(--background-color);
-}
-
 </style>
